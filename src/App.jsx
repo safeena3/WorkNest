@@ -4,9 +4,6 @@ import Tasklist from "./Components/Tasklist";
 import ProgressTracker from "./Components/ProgressTracker";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleTheme = () => setDarkMode(!darkMode);
   const [tasks, settasks] = useState(() => {
     const saved = localStorage.getItem("tasks");
     return saved ? JSON.parse(saved) : [];
@@ -15,11 +12,6 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
 
-  // Apply dark/light mode
-  useEffect(() => {
-    document.body.setAttribute("data-theme", darkMode ? "dark" : "light");
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
-  }, [darkMode]);
 
   // Save tasks in local storage
   useEffect(() => {
@@ -95,15 +87,11 @@ export default function App() {
   });
 
   return (
-    <div className={darkMode ? 'theme-dark' : 'theme-light'}>
     <div className="App">
       <header>
         <h1>WorkNest</h1>
         <p className="tagline">Work with WorkNest</p>
         <p className="date">{currentDate}</p>
-         <button className="theme-toggle" onClick={toggleTheme}>
-            {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
-          </button>
       </header>
 
       {/* Add Task */}
@@ -145,6 +133,5 @@ export default function App() {
         </button>
       )}
     </div>
-    </div>
-  );
+  )
 }
